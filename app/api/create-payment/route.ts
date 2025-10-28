@@ -1,14 +1,15 @@
 // src/app/api/create-payment/route.ts
 
 import { NextResponse } from "next/server"
+import { v4 as uuidv4 } from 'uuid'; // <--- MUDANÇA IMPORTANTE AQUI
 
 // Mapeamento de preços no back-end para segurança
 const prices = {
-  base: 1700, // R$17,00 em centavos
-  whats: 1990,
-  insta: 1990,
-  facebook: 1990,
-  gps: 2490,
+  base: 17.00, // R$17,00 (em reais)
+  whats: 19.90,
+  insta: 19.90,
+  facebook: 19.90,
+  gps: 24.90,
 }
 
 export async function POST(request: Request) {
@@ -19,56 +20,68 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Dados do cliente incompletos." }, { status: 400 });
     }
 
-    let totalAmount = prices.base
+    let totalAmount = prices.base;
     const items = [{
-      name: "Relatório Completo SigiloX",
+      id: "relatorio-principal",
+      title: "Relatório Completo SigiloX",
+      description: "Acesso completo ao relatório de investigação.",
+      price: prices.base,
       quantity: 1,
-      unit_price: prices.base,
-    }]
+      is_physical: false,
+    }];
 
     for (const bumpId of selectedBumps) {
-      if (prices[bumpId as keyof typeof prices]) {
-        totalAmount += prices[bumpId as keyof typeof prices]
+      const price = prices[bumpId as keyof typeof prices];
+      if (price) {
+        totalAmount += price;
         items.push({
-          name: `${bumpId.charAt(0).toUpperCase() + bumpId.slice(1)} Check`,
+          id: bumpId,
+          title: `${bumpId.charAt(0).toUpperCase() + bumpId.slice(1)} Check`,
+          description: `Ferramenta adicional de espionagem.`,
+          price: price,
           quantity: 1,
-          unit_price: prices[bumpId as keyof typeof prices],
-        })
+          is_physical: false,
+        });
       }
     }
 
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+
     const liraPayPayload = {
-      amount: totalAmount,
-      payment_method: "pix",
-      currency: "BRL",
+      external_id: uuidv4(), // <--- MUDANÇA IMPORTANTE AQUI
+      total_amount: parseFloat(totalAmount.toFixed(2)), // Garante que o total tenha 2 casas decimais
+      payment_method: "PIX",
+      webhook_url: "https://seu-site.com/api/webhook", // Lembre-se de trocar esta URL
+      items: items,
+      ip: ip,
       customer: {
         name: customer.name,
         email: customer.email,
+        document_type: "CPF",
         document: customer.document,
       },
-      items: items,
     }
 
-    const response = await fetch("https://api.lirapaybr.com/v1/charges", {
+    const response = await fetch("https://api.lirapaybr.com/v1/transactions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.LIRAPAY_API_KEY}`,
+        "api-secret": `${process.env.LIRAPAY_API_KEY}`,
       },
       body: JSON.stringify(liraPayPayload),
-    })
+    });
 
     const data = await response.json();
 
-    if (!response.ok) {
-      console.error("Erro da LiraPay:", data);
-      return NextResponse.json({ error: "Falha ao criar o pagamento na LiraPay", details: data }, { status: response.status });
+    if (!response.ok || data.hasError) {
+      console.error("Erro retornado pela LiraPay:", data);
+      return NextResponse.json({ error: "Falha ao criar a transação na LiraPay", details: data.error || data }, { status: response.status });
     }
 
     return NextResponse.json(data);
 
   } catch (error) {
-    console.error("Erro interno do servidor:", error);
-    return NextResponse.json({ error: "Ocorreu um erro inesperado." }, { status: 500 });
+    console.error("Erro interno do servidor ao processar pagamento:", error);
+    return NextResponse.json({ error: "Ocorreu um erro inesperado no servidor." }, { status: 500 });
   }
 }
