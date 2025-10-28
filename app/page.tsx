@@ -225,7 +225,7 @@ export default function SigiloX() {
       description: "Com apenas o número da pessoa que você deseja, espie todas as conversas em tempo real.",
       image:
         "https://production-mundpay.s3.us-east-2.amazonaws.com/products/2025/7/22/cG85NwREQbg777zS0waBsG1ZrXHLQYgZuWDwNW9P.png",
-      price: "19,90",
+      price: "37,00",
     },
     {
       id: "insta",
@@ -234,7 +234,7 @@ export default function SigiloX() {
         "Com apenas o @perfil do Instagram da pessoa que você deseja, espie todas as conversas em tempo real.",
       image:
         "https://production-mundpay.s3.us-east-2.amazonaws.com/products/2025/7/22/Hl4Tu36WAuJ3Jjao8JSMGeeks8FHqZBNJfFxVaq3.png",
-      price: "19,90",
+      price: "17,00",
     },
     {
       id: "facebook",
@@ -242,7 +242,7 @@ export default function SigiloX() {
       description: "Espionagem em tempo real no Facebook e Messenger (Fotos, mensagens, curtidas e visualizações)",
       image:
         "https://production-mundpay.s3.us-east-2.amazonaws.com/products/2025/7/22/Zxh2MGvqtT6ZHaDIIMOmXlkMsZILHwrPQYbO6oOX.png",
-      price: "19,90",
+      price: "17,00",
     },
     {
       id: "gps",
@@ -250,7 +250,7 @@ export default function SigiloX() {
       description: "Rastreie a localização da pessoa desejada 24 horas por dia via GPS",
       image:
         "https://production-mundpay.s3.us-east-2.amazonaws.com/products/2025/7/22/KoCqOCc5VG630gRfHFLayYSZaUQyLdPGEnQPNM3R.png",
-      price: "24,90",
+      price: "7,00",
     },
   ]
 
