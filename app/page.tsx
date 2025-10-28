@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation" // Adicione esta linha
 import {
   Search,
   Wifi,
@@ -70,49 +71,113 @@ const SalesProofPopup = ({ show, onClose }: { show: boolean; onClose: () => void
 
 // ... (Arrays de fotos e nomes - sem alterações)
 const malePhotos1824 = [
-  "https://blobs.vusercontent.com/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg",
-  "https://blobs.vusercontent.com/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg",
+  "https://blobs.vusercontent.net/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
 ]
 const malePhotos2534 = [
-  "https://blobs.vusercontent.com/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg",
-  "https://blobs.vusercontent.com/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg",
+  "https://blobs.vusercontent.net/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
+  "https://blobs.vusercontent.net/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
 ]
+
 const malePhotos3544 = [
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-morocholatino87.jpg-bam8DFyuAfzBux5zmL9lscgSfnbJ4w.jpeg",
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-ovalo-sex.jpg-TdxtGZRqBJy2V8x9kVfSml7x6QJpjt.jpeg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-morocholatino87.jpg-bam8DFyuAfzBux5zmL9lscgSfnbJ4w.jpeg", // male-35-44-male-morocholatino87.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-ovalo-sex.jpg-TdxtGZRqBJy2V8x9kVfSml7x6QJpjt.jpeg", // male-35-44-male-ovalo-sex.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-josepbgfeet.jpg-f25HHQX8Dso5oQBIE1uCIP3oC3KYrd.jpeg", // male-35-44-male-josepbgfeet.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-thesuitedboss.jpg-3CFJKVgZyyuzeIPk0klRBy6ixqjsHF.jpeg", // male-35-44-male-thesuitedboss.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-nicoink.jpg-0YCHbmDqw9dWCItx4Of9GbWBbpiZOZ.jpeg", // male-35-44-male-nicoink.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-nicoalpalo22.jpg-bPAd1S83ZoBGkoJyaKZ0BSEveTVHG1.jpeg", // male-35-44-male-nicoalpalo22.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-tunacho.jpg-2wHzLphZ2mKamlOeZmIfo1F09LM6pR.jpeg", // male-35-44-male-tunacho.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-thebigitaliansub.jpg-rcFp57YB2XDXYQ1ObWSzBY0QDTVkcI.jpeg", // male-35-44-male-thebigitaliansub.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/male-35-44-male-puntogof.jpg-9b6bkanYwTL6acvIqT3AC87dvvnXFZ.jpeg", // male-35-44-male-puntogof.jpg
 ]
+
 const malePhotos4554 = [
+  // Placeholder para quando receber as imagens 45-54
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/3SJBR44DZ9c6pLRVDTA0Ww/public/male/45-54/male-45-54-hombrelatinoarg.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/2xC10Dbr0Yi98WJdnWWgm4/public/male/45-54/male-45-54-petemastersxxx.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/wKcNRFe1QqreA4CfjbJQ7a/public/male/45-54/male-45-54-scorcherb8.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/0TwfWC666HpVosmkj_QPc_/public/male/45-54/male-45-54-coachtennisdad.jpg",
 ]
+
 const femalePhotos1824 = [
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-bustanutters.jpg-PfzSPm0cPx7xUL939wZRvkH6X4MnMI.jpeg",
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-megnut.jpg-JDM9fK1I9XwHyJHqn36CZyjwv55ycS.jpeg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-bustanutters.jpg-PfzSPm0cPx7xUL939wZRvkH6X4MnMI.jpeg", // female-18-24-female-ScarletBae.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-megnut.jpg-JDM9fK1I9XwHyJHqn36CZyjwv55ycS.jpeg", // female-18-24-female-born2bscene.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-siswet.jpg-5Ovue3nSIBKAMGL74rU3Ct4qf7bpFN.jpeg", // female-18-24-female-liliafourtwenty.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-ThorriandJax.jpg-CZTrwFISinAcSSvxRrAcUWtMDYTaiO.jpeg", // female-18-24-female-louprival.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-juicyjade9.jpg-nOS27Xu6KrOgaCRuu9862Hk73NegAs.jpeg", // female-18-24-female-babygirlmiza.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-ruth_lee.jpg-J5flhVFgEjhvJiSFhj0ZuBY3tGwjRI.jpeg", // female-18-24-female-imjuliequeen.jpg
+  "https://blobs.vusercontent.net/blob/female-25-34-female-graciebon1.jpg-kfctbLLp6OUl4Kc0OhSYyglGCLl29f.jpeg", // female-18-24-female-izzybunniesvip.jpg
 ]
+
 const femalePhotos2534 = [
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-ThorriandJax.jpg-CZTrwFISinAcSSvxRrAcUWtMDYTaiO.jpeg",
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-juicyjade9.jpg-nOS27Xu6KrOgaCRuu9862Hk73NegAs.jpeg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-bustanutters.jpg-PfzSPm0cPx7xUL939wZRvkH6X4MnMI.jpeg", // female-25-34-female-bustanutters.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-megnut.jpg-JDM9fK1I9XwHyJHqn36CZyjwv55ycS.jpeg", // female-25-34-female-megnut.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-siswet.jpg-5Ovue3nSIBKAMGL74rU3Ct4qf7bpFN.jpeg", // female-25-34-female-siswet.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-ThorriandJax.jpg-CZTrwFISinAcSSvxRrAcUWtMDYTaiO.jpeg", // female-25-34-female-ThorriandJax.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-juicyjade9.jpg-nOS27Xu6KrOgaCRuu9862Hk73NegAs.jpeg", // female-25-34-female-juicyjade9.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-ruth_lee.jpg-J5flhVFgEjhvJiSFhj0ZuBY3tGwjRI.jpeg", // female-25-34-female-ruth_lee.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-graciebon1.jpg-kfctbLLp6OUl4Kc0OhSYyglGCLl29f.jpeg", // female-25-34-female-graciebon1.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-brujita.roja.jpg-KZxlryBKf0XVbOHRNdGAMBpPQTa82Z.jpeg", // female-25-34-female-brujita.roja.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-25-34-female-toomanypeaches.jpg-6PDRsf3v2Nalrv9eRaku1bX8wh5kOe.jpeg", // female-25-34-female-toomanypeaches.jpg
 ]
+
 const femalePhotos3544 = [
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-35-44-female-belle_oharaxxx.jpg-Pq9aUAbtUDVI9UrrzZJlkfEC0cxuQv.jpeg",
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-35-44-female-txhotwife84_free.jpg-QV1C6Nj4fbSzTRIyGs7p4kiqtozXCx.jpeg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-35-44-female-belle_oharaxxx.jpg-Pq9aUAbtUDVI9UrrzZJlkfEC0cxuQv.jpeg", // female-35-44-female-belle_oharaxxx.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-35-44-female-txhotwife84_free.jpg-QV1C6Nj4fbSzTRIyGs7p4kiqtozXCx.jpeg", // female-35-44-female-txhotwife84_free.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-35-44-female-malmalloy.jpg-B7c4Pg36GwUFFIayybP0fiyWqkv51R.jpeg", // female-35-44-female-malmalloy.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-35-44-female-anialisimo.jpg-EcQ66PmaeU25fFT0xV8udt4mMqLwhC.jpeg", // female-35-44-female-anialisimo.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/female-35-44-female-syrenjaymes.jpg-N4w0IhzPmQNbX0BqZRFeTvdBdGNn3Y.jpeg", // female-35-44-female-syrenjaymes.jpg
 ]
+
 const femalePhotos4554 = [
+  // Placeholder para quando receber as imagens 45-54
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/AEJxds2OT7Gt-B4VLJXv4a/public/female/45-54/female-45-54-annikarose69.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/1BUA6sJloJdt-jvL9MCX_i/public/female/45-54/female-45-54-AvrilShowers.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/ZP3nTnsBf-eH5TZPmJ2Y5l/public/female/45-54/female-45-54-casey_deluxe.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/_JzuRXZpf_Z2oSrQsFwVqy/public/female/45-54/female-45-54-eroticnikki.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/fvveni81HkNN0LrqIB4JXJ/public/female/45-54/female-45-54-goldieblair.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/N2QWnE3U5cy91m0VkVFzLX/public/female/45-54/female-45-54-jemmaluv.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/FJ77Pjm_R4YXKajt4cDFr4/public/female/45-54/female-45-54-lolamaverick.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/0z6995_0sJh478H4DUzkcd/public/female/45-54/female-45-54-MissHawthorn.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/1RCbILUlOe_6Oh3C6E1a9F/public/female/45-54/female-45-54-quiet_winner_76.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/uGH4sQMZaiDPeeyCrYTD2K/public/female/45-54/female-45-54-rileysweetnsexy.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/utg8RGec_BylfuoPKcczJ0/public/female/45-54/female-45-54-rose.curvy.xxx.png",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/W8GGhX3aDfLrw4OPchlLIa/public/female/45-54/female-45-54-solymx2.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/NpqvlUBeE3bPdFwQAhge5Z/public/female/45-54/female-45-54-stellahere.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/fKgrGvdsa_GC0eLH-l5HTM/public/female/45-54/female-45-54-usapippa.jpg",
 ]
+
 const maleNames = {
-  "18-24": ["Enzo", "Miguel", "Arthur"],
-  "25-34": ["Bruno", "Leonardo", "Rodrigo"],
-  "35-44": ["Adriano", "Roberto", "Júlio"],
-  "45-54": ["Antônio", "Francisco", "José"],
+  "18-24": ["Enzo", "Miguel", "João", "Augusto", "Murilo", "Breno", "Guilherme"],
+  "25-34": ["Bruno", "Leonardo", "Rodrigo", "Sávio", "Gleison", "Felipe", "Leandro"],
+  "35-44": ["Adriano", "Roberto", "Júlio", "José", "Taylor", "Fred", "Ronan"],
+  "45-54": ["Antônio", "Francisco", "José", "Milton", "Alvares", "Marcos", "Rui"],
 }
 const femaleNames = {
-  "18-24": ["Júlia", "Sophia", "Isabella"],
-  "25-34": ["Camila", "Fernanda", "Amanda"],
-  "35-44": ["Luciana", "Sandra", "Mônica"],
-  "45-54": ["Vera", "Sônia", "Regina"],
+  "18-24": ["Júlia", "Sophia", "Isabella", "Giulia", "Stella", "Marina"],
+  "25-34": ["Camila", "Fernanda", "Amanda", "Brenda", "Alexia", "Gaby"],
+  "35-44": ["Luciana", "Sandra", "Mônica", "Sabrina", "Letícia", "Keyla"],
+  "45-54": ["Vera", "Sônia", "Regina", "Cleusa", "Vânia", "Betina", "Soraya"],
 }
 
 export default function SigiloX() {
+  const router = useRouter()
   const [currentStep, setCurrentStep] = useState<AppStep>("landing")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [selectedGender, setSelectedGender] = useState("")
@@ -217,6 +282,33 @@ export default function SigiloX() {
       setIsLoadingPayment(false)
     }
   }
+
+  useEffect(() => {
+    // Se não temos um resultado de pagamento com ID, não faz nada
+    if (!paymentResult?.id) {
+      return
+    }
+
+    // Começa a verificar o status a cada 3 segundos
+    const intervalId = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/check-status/${paymentResult.id}`)
+        const data = await response.json()
+
+        // Se o status for "PAID", limpa o intervalo e redireciona
+        if (data.status === "PAID") {
+          clearInterval(intervalId)
+          router.push("/sucesso") // Redireciona para a página de sucesso
+        }
+      } catch (error) {
+        console.error("Erro ao verificar status do pagamento:", error)
+        // Opcional: parar de tentar após X falhas
+      }
+    }, 3000) // Verifica a cada 3 segundos
+
+    // Função de limpeza: para o intervalo se o componente for desmontado
+    return () => clearInterval(intervalId)
+  }, [paymentResult, router]) // Dependências do useEffect
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -489,7 +581,8 @@ export default function SigiloX() {
     }
   }
 
-  const generateFakeProfiles = useCallback(() => {
+  // Updated generateFakeProfiles function
+ const generateFakeProfiles = useCallback(() => {
     const profiles: any[] = []
     const usedNames: string[] = []
     const usedImages: string[] = []
@@ -497,8 +590,11 @@ export default function SigiloX() {
     const getUniqueItem = (sourceArray: string[], usedArray: string[]) => {
       if (!sourceArray || sourceArray.length === 0) return "/placeholder.svg"
       const availableItems = sourceArray.filter((item) => !usedArray.includes(item))
-      const source = availableItems.length > 0 ? availableItems : sourceArray
-      const selectedItem = source[Math.floor(Math.random() * source.length)]
+      if (availableItems.length === 0) {
+        // Fallback: se todos os itens já foram usados, permite a repetição
+        return sourceArray[Math.floor(Math.random() * sourceArray.length)]
+      }
+      const selectedItem = availableItems[Math.floor(Math.random() * availableItems.length)]
       usedArray.push(selectedItem)
       return selectedItem
     }
@@ -506,15 +602,91 @@ export default function SigiloX() {
     const matchLocation =
       city || ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba"][Math.floor(Math.random() * 4)]
     const sampleBios = [
-      "Aventureiro, amante de café...",
-      "Fã de academia de dia, maratonista de Netflix à noite...",
-      "Artista, sonhador e filósofo de meio período...",
+    "Sou o que você ganha se misturar o Whindersson com o Cauã Reymond. Sou engraçado sem querer e minha mãe me acha lindo.",
+    "Aventureiro, amante de café e entusiasta de cachorros. Procurando alguém para explorar a cidade comigo!",
+    "Fã de academia de dia, maratonista de Netflix à noite. Vamos tomar um açaí e falar sobre a vida.",
+    "Artista, sonhador e filósofo de meio período. Acredito em boas energias e ótimas conversas.",
+    "Explorador de novos lugares e pizzarias antigas. Vamos achar a melhor fatia da cidade.",
+    "Rato de academia de manhã, fã de taco à noite. Quer me acompanhar em um dos dois?",
+    "Sonhador com playlist pra cada humor. Compartilhe sua música favorita e vamos curtir.",
+    "50% aventura, 50% Netflix. Procuro alguém pra me equilibrar.",
+    "Amante de pôr do sol, sarcasmo e viagens espontâneas. Tem um destino em mente?",
+    "Acredito em bom café, grandes conversas e acariciar todo cachorro que vejo.",
+    "Filósofo de meio período, especialista em lanches em tempo integral. Vamos debater sabores de pizza.",
+    "Sempre atrás de nasceres do sol e boas histórias. Tem uma pra contar?",
+    "Minha vida é um misto de caos e calmaria. Quer participar da parte calma?",
+    "Comilão, viajante e pensador ocasional. Vamos comer algo e resolver os mistérios da vida.",
+    "Sou 10% trocadilhos espertos, 90% tentando manter minhas plantas vivas. Me ajuda?",
+    "Viciado em música e observador de estrelas. Vamos achar um lugar pra ver o céu e conversar.",
+    "Eu trago os trocadilhos ruins, você traz os revirar de olhos. Combinação perfeita, né?",
+    "Amante de livros, praias e burritos. Vamos criar nossa própria história.",
+    "Metade viciado em adrenalina, metade fã de cobertor quentinho. Qual é a sua vibe?",
+    "Sempre a fim de uma trilha ou uma corrida noturna no diner. Escolha sua aventura!",
+    "Sou aquele amigo que sempre se atrasa, mas leva as melhores playlists. Quer ouvir?",
+    "A vida é curta demais pra café ruim ou papos chatos. Vamos tornar os dois épicos.",
+    "Metade sonhador, metade realizador, 100% boas vibrações. Pronto pra criar memórias?",
     ]
+    
+    const personalityTags = [
+  ["Capricórnio", "UFRJ", "Gato"],
+  ["Leão", "UFMG", "Cachorro"],
+  ["Virgem", "USP", "Café"],
+  ["Gêmeos", "UFLA", "Viagem"],
+  ["Áries", "UFSC", "Aventura"],
+  ["Touro", "PUC", "Livros"],
+  ["Escorpião", "UEG", "Música"],
+  ["Libra", "CEFET-MG", "Arte"],
+  ["Aquário", "CEFET-SP", "Observar Estrelas"],
+  ["Peixes", "IFMG", "Sonhos"],
+  ["Câncer", "UEPA", "Praia"],
+  ["Sagitário", "IFPR", "Trilha"],
+  ["Capricórnio", "IFRJ", "Cozinha"],
+  ["Leão", "ESFP", "UERJ"],
+  ["Virgem", "IMPA", "Jogos"],
+  ["Gêmeos", "USCS", "Fotografia"],
+  ["Áries", "FMJ", "Esportes"],
+  ["Touro", "INFP", "Natureza"],
+  ["Escorpião", "INTJ", "Mistério"],
+  ["Libra", "ENFJ", "Moda"],
+  ["Aquário", "ENTP", "Tecnologia"],
+  ["Peixes", "ISFJ", "Filmes"],
+  ["Câncer", "INFJ", "Poesia"],
+  ["Sagitário", "ESFP", "Festas"],
+]
+
+const interestTags = [
+  ["Pró-escolha", "Café", "Vidas Negras Importam", "Tatuagens"],
+  ["Ioga", "Sustentabilidade", "Fotografia", "Cozinhar"],
+  ["Academia", "Meditação", "Livros", "Vinho"],
+  ["Viagem", "Música", "Direitos Animais", "Trilha"],
+  ["Arte", "Veganismo", "Filmes", "Aventura"],
+  ["Jogos", "Tecnologia", "Natureza", "Artesanato"],
+  ["Dança", "Justiça Social", "Podcasts", "Assar"],
+  ["Moda", "Meio Ambiente", "Poesia", "Acampar"],
+  ["Esportes", "Saúde Mental", "Jardinagem", "Discos de Vinil"],
+  ["Escrita", "Ação Climática", "Teatro", "Cafeterias"],
+  ["Corrida", "Voluntariado", "Jogos de Tabuleiro", "Comida de Rua"],
+  ["Pintura", "Direitos LGBTQ+", "Shows", "Brechós"],
+  ["Ciclismo", "Atenção Plena", "Ficção Científica", "Cervejarias"],
+  ["Esqui", "Ativismo", "Documentários", "Pôr do Sol"],
+  ["Surfe", "Exploração Urbana", "Quadrinhos", "Cerveja Artesanal"],
+  ["Escalada", "Igualdade", "Jazz", "Carros Antigos"],
+  ["Skate", "Moda Sustentável", "Podcasts", "Food Trucks"],
+  ["Caiaque", "Bem-Estar Animal", "Livros de Fantasia", "Observar Estrelas"],
+  ["Boxe", "Serviço Comunitário", "Filmes Indies", "Sushi"],
+  ["Trilha", "Vida Verde", "Música ao Vivo", "Cerâmica"],
+  ["Natação", "Feminismo", "História", "Churrasco"],
+  ["Fotografia", "Minimalismo", "True Crime", "Viagens de Carro"],
+  ["Dança", "Trabalho Voluntário", "Animação", "Drinques"],
+  ["Canto", "Conservação dos Oceanos", "Romances de Mistério", "Piqueniques"],
+]
+    
     const orientations = ["Hétero", "Bissexual", "Pansexual", "Queer"]
 
     for (let i = 0; i < 3; i++) {
       let profileGender: "masculino" | "feminino"
       let profileAgeRange: keyof typeof maleNames
+
       if (selectedGender === "nao-binario") {
         profileGender = Math.random() < 0.5 ? "masculino" : "feminino"
         const ageRanges: (keyof typeof maleNames)[] = ["18-24", "25-34", "35-44", "45-54"]
@@ -524,23 +696,51 @@ export default function SigiloX() {
         profileAgeRange = ageRange as keyof typeof maleNames
       }
 
-      const names = profileGender === "masculino" ? maleNames[profileAgeRange] : femaleNames[profileAgeRange]
-      let photoArray: string[] = []
+      let names: string[] = [];
+      let photoArray: string[] = [];
+
+      // LÓGICA REVERTIDA E CORRIGIDA PARA AGRUPAR FOTOS POR FAIXA ETÁRIA
       if (profileGender === "masculino") {
-        if (profileAgeRange === "18-24") photoArray = malePhotos1824
-        else if (profileAgeRange === "25-34") photoArray = malePhotos2534
-        else if (profileAgeRange === "35-44") photoArray = malePhotos3544
-        else photoArray = malePhotos4554
+        names = maleNames[profileAgeRange] || []
+        switch (profileAgeRange) {
+          case "18-24":
+            photoArray = malePhotos1824
+            break
+          case "25-34":
+            photoArray = malePhotos2534
+            break
+          case "35-44":
+            photoArray = malePhotos3544
+            break
+          case "45-54":
+            photoArray = malePhotos4554
+            break
+          default:
+            photoArray = malePhotos2534 // Fallback
+        }
       } else {
-        if (profileAgeRange === "18-24") photoArray = femalePhotos1824
-        else if (profileAgeRange === "25-34") photoArray = femalePhotos2534
-        else if (profileAgeRange === "35-44") photoArray = femalePhotos3544
-        else photoArray = femalePhotos4554
+        // feminino
+        names = femaleNames[profileAgeRange] || []
+        switch (profileAgeRange) {
+          case "18-24":
+            photoArray = femalePhotos1824
+            break
+          case "25-34":
+            photoArray = femalePhotos2534
+            break
+          case "35-44":
+            photoArray = femalePhotos3544
+            break
+          case "45-54":
+            photoArray = femalePhotos4554
+            break
+          default:
+            photoArray = femalePhotos2534 // Fallback
+        }
       }
 
-      const name = getUniqueItem(names || [], usedNames)
+      const name = getUniqueItem(names, usedNames)
       const profileImage = getUniqueItem(photoArray, usedImages)
-      // CORREÇÃO APLICADA AQUI
       const age = Math.floor(Math.random() * 7) + (Number.parseInt(profileAgeRange.split("-")[0]) || 25)
 
       profiles.push({
@@ -554,8 +754,12 @@ export default function SigiloX() {
         distance: `${Math.floor(Math.random() * 15) + 1} km de distância`,
         orientation: orientations[Math.floor(Math.random() * orientations.length)],
         verified: Math.random() > 0.5,
+        // Adicionando os campos que faltavam para o modal
+        personality: ["Capricórnio", "INTJ", "Café"],
+        interests: ["Viagens", "Música", "Trilhas"]
       })
     }
+
     setGeneratedProfiles(profiles)
   }, [selectedGender, ageRange, city])
 
@@ -834,8 +1038,9 @@ export default function SigiloX() {
                               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
                             </svg>
                             <p className="text-[#444444] text-base sm:text-lg leading-relaxed font-normal">
-                              Os melhores R$17 que já gastei. Me poupou meses de incerteza e me deu o encerramento que
-                              eu precisava. Meus instintos estavam certos o tempo todo.
+                              O melhor investimento que fiz na minha vida, muito mais em conta que contratar um detetive
+                              particular. Me poupou meses de incerteza e me deu o encerramento que eu precisava. Meus
+                              instintos estavam certos o tempo todo.
                             </p>
                           </div>
                           <div className="flex items-center text-[#FFD700] text-sm sm:text-base gap-1">
@@ -1627,7 +1832,7 @@ export default function SigiloX() {
                       className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 text-sm sm:text-base md:text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6"
                     >
                       <span className="block text-center leading-tight px-2">
-                        🔓 DESBLOQUEAR MEU RELATÓRIO - ESTOU PRONTO(A) PARA A VERDADE
+                        🔓 DESBLOQUEAR RELATÓRIO COMPLETO
                       </span>
                     </Button>
                     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
@@ -1794,11 +1999,11 @@ export default function SigiloX() {
                         </div>
                         <div className="mb-6 sm:mb-8">
                           <div className="flex items-center justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
-                            <div className="text-2xl sm:text-3xl text-gray-400 line-through">R$47,00</div>
-                            <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">R$17,00</div>
+                            <div className="text-2xl sm:text-3xl text-gray-400 line-through">R$147,00</div>
+                            <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">R$47,00</div>
                           </div>
                           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-bold mb-4">
-                            🔥 62% OFF - TEMPO LIMITADO
+                            🔥 70% OFF - TEMPO LIMITADO
                           </div>
                           <p className="text-sm sm:text-base text-gray-600 font-medium">
                             Pagamento único para acesso vitalício ao seu relatório completo

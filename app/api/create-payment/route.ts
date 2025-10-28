@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from 'uuid'; // <--- MUDANÇA IMPORTANTE AQUI
 
 // Mapeamento de preços no back-end para segurança
 const prices = {
-  base: 17.00, // R$17,00 (em reais)
-  whats: 19.90,
-  insta: 19.90,
-  facebook: 19.90,
-  gps: 24.90,
+  base: 47.00, // R$17,00 (em reais)
+  whats: 37.00,
+  insta: 17.00,
+  facebook: 17.00,
+  gps: 7.00,
 }
 
 export async function POST(request: Request) {
