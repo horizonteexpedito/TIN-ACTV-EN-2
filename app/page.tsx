@@ -348,7 +348,8 @@ export default function SigiloX() {
 
   useEffect(() => {
     const fetchWhatsAppPhoto = async () => {
-      if (debouncedPhone.length < 10) {
+      // Garante que o número debounced tem pelo menos 10 dígitos (ex: 5511987654321)
+      if (debouncedPhone.length < 10) { 
         setProfilePhoto(null)
         setIsPhotoPrivate(false)
         return
@@ -359,7 +360,9 @@ export default function SigiloX() {
         const response = await fetch("/api/whatsapp-photo", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.JSONstringify({ phone: debouncedPhone }),
+          // CORREÇÃO: Enviando o número completo e limpo.
+          // E corrigindo JSON.JSONstringify para JSON.stringify
+          body: JSON.stringify({ phone: debouncedPhone }),
         })
         const data = await response.json()
         if (!response.ok || !data.success) throw new Error(data.error || "Falha ao buscar foto")
@@ -533,47 +536,29 @@ export default function SigiloX() {
             ...baseMessages.slice(2),
           ]
         : baseMessages
-
       const interval = setInterval(() => {
-        setGeneratingProgress((prevProgress) => {
-          const newProgress = Math.min(prevProgress + 100 / 75, 100);
-
-          // Atualiza os passos concluídos de forma segura, usando o estado mais recente
-          setStepCompleted((prevSteps) => {
-            if (newProgress >= 33 && !prevSteps.profilePhotos) {
-              return { ...prevSteps, profilePhotos: true };
-            }
-            if (newProgress >= 66 && !prevSteps.conversations) {
-              return { ...prevSteps, conversations: true };
-            }
-            if (newProgress >= 90 && !prevSteps.finalizing) {
-              return { ...prevSteps, finalizing: true };
-            }
-            return prevSteps; // Retorna o estado anterior se nenhuma condição for atendida
-          });
-
-          // Atualiza a mensagem de progresso
-          const currentMessage = messages.find((m) => newProgress >= m.progress && newProgress < m.progress + 20);
-          if (currentMessage) {
-            setGeneratingMessage(currentMessage.message);
-          }
-
-          // Quando o progresso chega a 100%, avança para o próximo passo
+        setGeneratingProgress((prev) => {
+          const newProgress = prev + 100 / 75
+          if (newProgress >= 33 && !stepCompleted.profilePhotos)
+            setStepCompleted((p) => ({ ...p, profilePhotos: true }))
+          if (newProgress >= 66 && !stepCompleted.conversations)
+            setStepCompleted((p) => ({ ...p, conversations: true }))
+          if (newProgress >= 90 && !stepCompleted.finalizing) setStepCompleted((p) => ({ ...p, finalizing: true }))
+          const currentMessage = messages.find((m) => newProgress >= m.progress && newProgress < m.progress + 20)
+          if (currentMessage) setGeneratingMessage(currentMessage.message)
           if (newProgress >= 100) {
             setTimeout(() => {
-              setCurrentStep("result");
-            }, 1500);
+              if (stepCompleted.profilePhotos && stepCompleted.conversations && stepCompleted.finalizing)
+                setCurrentStep("result")
+            }, 1500)
+            return 100
           }
-          
-          return newProgress;
-        });
-      }, 400);
-
-      // Função de limpeza para parar o intervalo quando o componente desmontar
-      return () => clearInterval(interval);
+          return Math.min(newProgress, 100)
+        })
+      }, 400)
+      return () => clearInterval(interval)
     }
-    // A DEPENDÊNCIA `stepCompleted` FOI REMOVIDA PARA QUEBRAR O LOOP INFINITO
-  }, [currentStep, city]);
+  }, [currentStep, city, stepCompleted])
 
   useEffect(() => {
     if (["generating", "result", "offer"].includes(currentStep)) {
