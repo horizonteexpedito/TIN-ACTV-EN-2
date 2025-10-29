@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from 'uuid'; // <--- MUDANÇA IMPORTANTE AQUI
 
 // Mapeamento de preços no back-end para segurança
 const prices = {
-  base: 17.00, // R$17,00 (em reais)
-  whats: 19.90,
-  insta: 19.90,
-  facebook: 19.90,
-  gps: 24.90,
+  base: 47.00, // R$17,00 (em reais)
+  whats: 37.00,
+  insta: 17.00,
+  facebook: 17.00,
+  gps: 7.00,
 }
 
 export async function POST(request: Request) {
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       external_id: uuidv4(), // <--- MUDANÇA IMPORTANTE AQUI
       total_amount: parseFloat(totalAmount.toFixed(2)), // Garante que o total tenha 2 casas decimais
       payment_method: "PIX",
-      webhook_url: "https://seu-site.com/api/webhook", // Lembre-se de trocar esta URL
+      webhook_url: "https://tinderchecks.online/api/webhook", // Lembre-se de trocar esta URL
       items: items,
       ip: ip,
       customer: {
