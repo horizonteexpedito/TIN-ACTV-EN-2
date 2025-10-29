@@ -533,29 +533,47 @@ export default function SigiloX() {
             ...baseMessages.slice(2),
           ]
         : baseMessages
+
       const interval = setInterval(() => {
-        setGeneratingProgress((prev) => {
-          const newProgress = prev + 100 / 75
-          if (newProgress >= 33 && !stepCompleted.profilePhotos)
-            setStepCompleted((p) => ({ ...p, profilePhotos: true }))
-          if (newProgress >= 66 && !stepCompleted.conversations)
-            setStepCompleted((p) => ({ ...p, conversations: true }))
-          if (newProgress >= 90 && !stepCompleted.finalizing) setStepCompleted((p) => ({ ...p, finalizing: true }))
-          const currentMessage = messages.find((m) => newProgress >= m.progress && newProgress < m.progress + 20)
-          if (currentMessage) setGeneratingMessage(currentMessage.message)
+        setGeneratingProgress((prevProgress) => {
+          const newProgress = Math.min(prevProgress + 100 / 75, 100);
+
+          // Atualiza os passos concluídos de forma segura, usando o estado mais recente
+          setStepCompleted((prevSteps) => {
+            if (newProgress >= 33 && !prevSteps.profilePhotos) {
+              return { ...prevSteps, profilePhotos: true };
+            }
+            if (newProgress >= 66 && !prevSteps.conversations) {
+              return { ...prevSteps, conversations: true };
+            }
+            if (newProgress >= 90 && !prevSteps.finalizing) {
+              return { ...prevSteps, finalizing: true };
+            }
+            return prevSteps; // Retorna o estado anterior se nenhuma condição for atendida
+          });
+
+          // Atualiza a mensagem de progresso
+          const currentMessage = messages.find((m) => newProgress >= m.progress && newProgress < m.progress + 20);
+          if (currentMessage) {
+            setGeneratingMessage(currentMessage.message);
+          }
+
+          // Quando o progresso chega a 100%, avança para o próximo passo
           if (newProgress >= 100) {
             setTimeout(() => {
-              if (stepCompleted.profilePhotos && stepCompleted.conversations && stepCompleted.finalizing)
-                setCurrentStep("result")
-            }, 1500)
-            return 100
+              setCurrentStep("result");
+            }, 1500);
           }
-          return Math.min(newProgress, 100)
-        })
-      }, 400)
-      return () => clearInterval(interval)
+          
+          return newProgress;
+        });
+      }, 400);
+
+      // Função de limpeza para parar o intervalo quando o componente desmontar
+      return () => clearInterval(interval);
     }
-  }, [currentStep, city, stepCompleted])
+    // A DEPENDÊNCIA `stepCompleted` FOI REMOVIDA PARA QUEBRAR O LOOP INFINITO
+  }, [currentStep, city]);
 
   useEffect(() => {
     if (["generating", "result", "offer"].includes(currentStep)) {

@@ -51,13 +51,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const urlProfile = `https://whatsapp-data.p.rapidapi.com/wspicture?phone=${fullPhone}`
+    const urlProfile = `https://whatsapp-profile-pic.p.rapidapi.com/isbiz?phone=${fullPhone}`
 
     const response = await fetch(urlProfile, {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "663753efb4mshcbbdde11e811789p149069jsnd73bd1ba7a71",
-        "X-RapidAPI-Host": "whatsapp-data.p.rapidapi.com",
+        "X-RapidAPI-Key": "f74236b7e6msh8ca93f03154347cp11c3bfjsn68a073735bf1",
+        "X-RapidAPI-Host": "whatsapp-profile-pic.p.rapidapi.com",
       },
       signal: AbortSignal.timeout?.(10_000),
     })
