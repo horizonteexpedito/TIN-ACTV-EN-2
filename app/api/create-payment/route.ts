@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'; // <--- MUDANÇA IMPORTANTE AQUI
 // Mapeamento de preços no back-end para segurança
 const prices = {
   base: 47.00, // R$17,00 (em reais)
-  whats: 37.00,
+  whats: 37.90,
   insta: 17.00,
   facebook: 17.00,
   gps: 7.00,
