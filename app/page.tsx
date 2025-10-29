@@ -1960,11 +1960,11 @@ export default function SigiloX() {
                         </div>
                         <div className="mb-6 sm:mb-8">
                           <div className="flex items-center justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
-                            <div className="text-2xl sm:text-3xl text-gray-400 line-through">R$47,00</div>
-                            <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">R$17,00</div>
+                            <div className="text-2xl sm:text-3xl text-gray-400 line-through">R$147,00</div>
+                            <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">R$47,00</div>
                           </div>
                           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-bold mb-4">
-                            🔥 62% OFF - TEMPO LIMITADO
+                            🔥 70% OFF - TEMPO LIMITADO
                           </div>
                           <p className="text-sm sm:text-base text-gray-600 font-medium">
                             Pagamento único para acesso vitalício ao seu relatório completo
