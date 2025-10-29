@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useRouter } from "next/navigation" // Adicione esta linha
+import { useRouter } from 'next/navigation'; // Adicione esta linha
 import {
   Search,
   Wifi,
@@ -71,28 +71,28 @@ const SalesProofPopup = ({ show, onClose }: { show: boolean; onClose: () => void
 
 // ... (Arrays de fotos e nomes - sem alterações)
 const malePhotos1824 = [
-  "https://blobs.vusercontent.net/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
 ]
 const malePhotos2534 = [
-  "https://blobs.vusercontent.net/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
-  "https://blobs.vusercontent.net/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
+  "https://blobs.vusercontent.com/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
 ]
 
 const malePhotos3544 = [
@@ -284,31 +284,32 @@ export default function SigiloX() {
   }
 
   useEffect(() => {
-    // Se não temos um resultado de pagamento com ID, não faz nada
-    if (!paymentResult?.id) {
-      return
-    }
-
-    // Começa a verificar o status a cada 3 segundos
-    const intervalId = setInterval(async () => {
-      try {
-        const response = await fetch(`/api/check-status/${paymentResult.id}`)
-        const data = await response.json()
-
-        // Se o status for "PAID", limpa o intervalo e redireciona
-        if (data.status === "PAID") {
-          clearInterval(intervalId)
-          router.push("/sucesso") // Redireciona para a página de sucesso
+        // Se não temos um resultado de pagamento com ID, não faz nada
+        if (!paymentResult?.id) {
+            return;
         }
-      } catch (error) {
-        console.error("Erro ao verificar status do pagamento:", error)
-        // Opcional: parar de tentar após X falhas
-      }
-    }, 3000) // Verifica a cada 3 segundos
 
-    // Função de limpeza: para o intervalo se o componente for desmontado
-    return () => clearInterval(intervalId)
-  }, [paymentResult, router]) // Dependências do useEffect
+        // Começa a verificar o status a cada 3 segundos
+        const intervalId = setInterval(async () => {
+            try {
+                const response = await fetch(`/api/check-status/${paymentResult.id}`);
+                const data = await response.json();
+
+                // Se o status for "PAID", limpa o intervalo e redireciona
+                if (data.status === 'PAID') {
+                    clearInterval(intervalId);
+                    router.push('/sucesso'); // Redireciona para a página de sucesso
+                }
+            } catch (error) {
+                console.error("Erro ao verificar status do pagamento:", error);
+                // Opcional: parar de tentar após X falhas
+            }
+        }, 3000); // Verifica a cada 3 segundos
+
+        // Função de limpeza: para o intervalo se o componente for desmontado
+        return () => clearInterval(intervalId);
+
+    }, [paymentResult, router]); // Dependências do useEffect
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -581,8 +582,7 @@ export default function SigiloX() {
     }
   }
 
-  // Updated generateFakeProfiles function
- const generateFakeProfiles = useCallback(() => {
+  const generateFakeProfiles = useCallback(() => {
     const profiles: any[] = []
     const usedNames: string[] = []
     const usedImages: string[] = []
@@ -590,11 +590,8 @@ export default function SigiloX() {
     const getUniqueItem = (sourceArray: string[], usedArray: string[]) => {
       if (!sourceArray || sourceArray.length === 0) return "/placeholder.svg"
       const availableItems = sourceArray.filter((item) => !usedArray.includes(item))
-      if (availableItems.length === 0) {
-        // Fallback: se todos os itens já foram usados, permite a repetição
-        return sourceArray[Math.floor(Math.random() * sourceArray.length)]
-      }
-      const selectedItem = availableItems[Math.floor(Math.random() * availableItems.length)]
+      const source = availableItems.length > 0 ? availableItems : sourceArray
+      const selectedItem = source[Math.floor(Math.random() * source.length)]
       usedArray.push(selectedItem)
       return selectedItem
     }
@@ -602,91 +599,88 @@ export default function SigiloX() {
     const matchLocation =
       city || ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba"][Math.floor(Math.random() * 4)]
     const sampleBios = [
-    "Sou o que você ganha se misturar o Whindersson com o Cauã Reymond. Sou engraçado sem querer e minha mãe me acha lindo.",
-    "Aventureiro, amante de café e entusiasta de cachorros. Procurando alguém para explorar a cidade comigo!",
-    "Fã de academia de dia, maratonista de Netflix à noite. Vamos tomar um açaí e falar sobre a vida.",
-    "Artista, sonhador e filósofo de meio período. Acredito em boas energias e ótimas conversas.",
-    "Explorador de novos lugares e pizzarias antigas. Vamos achar a melhor fatia da cidade.",
-    "Rato de academia de manhã, fã de taco à noite. Quer me acompanhar em um dos dois?",
-    "Sonhador com playlist pra cada humor. Compartilhe sua música favorita e vamos curtir.",
-    "50% aventura, 50% Netflix. Procuro alguém pra me equilibrar.",
-    "Amante de pôr do sol, sarcasmo e viagens espontâneas. Tem um destino em mente?",
-    "Acredito em bom café, grandes conversas e acariciar todo cachorro que vejo.",
-    "Filósofo de meio período, especialista em lanches em tempo integral. Vamos debater sabores de pizza.",
-    "Sempre atrás de nasceres do sol e boas histórias. Tem uma pra contar?",
-    "Minha vida é um misto de caos e calmaria. Quer participar da parte calma?",
-    "Comilão, viajante e pensador ocasional. Vamos comer algo e resolver os mistérios da vida.",
-    "Sou 10% trocadilhos espertos, 90% tentando manter minhas plantas vivas. Me ajuda?",
-    "Viciado em música e observador de estrelas. Vamos achar um lugar pra ver o céu e conversar.",
-    "Eu trago os trocadilhos ruins, você traz os revirar de olhos. Combinação perfeita, né?",
-    "Amante de livros, praias e burritos. Vamos criar nossa própria história.",
-    "Metade viciado em adrenalina, metade fã de cobertor quentinho. Qual é a sua vibe?",
-    "Sempre a fim de uma trilha ou uma corrida noturna no diner. Escolha sua aventura!",
-    "Sou aquele amigo que sempre se atrasa, mas leva as melhores playlists. Quer ouvir?",
-    "A vida é curta demais pra café ruim ou papos chatos. Vamos tornar os dois épicos.",
-    "Metade sonhador, metade realizador, 100% boas vibrações. Pronto pra criar memórias?",
+      "Sou o que você ganha se misturar o Whindersson com o Cauã Reymond. Sou engraçado sem querer e minha mãe me acha lindo.",
+      "Aventureiro, amante de café e entusiasta de cachorros. Procurando alguém para explorar a cidade comigo!",
+      "Fã de academia de dia, maratonista de Netflix à noite. Vamos tomar um açaí e falar sobre a vida.",
+      "Artista, sonhador e filósofo de meio período. Acredito em boas energias e ótimas conversas.",
+      "Explorador de novos lugares e pizzarias antigas. Vamos achar a melhor fatia da cidade.",
+      "Rato de academia de manhã, fã de taco à noite. Quer me acompanhar em um dos dois?",
+      "Sonhador com playlist pra cada humor. Compartilhe sua música favorita e vamos curtir.",
+      "50% aventura, 50% Netflix. Procuro alguém pra me equilibrar.",
+      "Amante de pôr do sol, sarcasmo e viagens espontâneas. Tem um destino em mente?",
+      "Acredito em bom café, grandes conversas e acariciar todo cachorro que vejo.",
+      "Filósofo de meio período, especialista em lanches em tempo integral. Vamos debater sabores de pizza.",
+      "Sempre atrás de nasceres do sol e boas histórias. Tem uma pra contar?",
+      "Minha vida é um misto de caos e calmaria. Quer participar da parte calma?",
+      "Comilão, viajante e pensador ocasional. Vamos comer algo e resolver os mistérios da vida.",
+      "Eu trago os trocadilhos ruins, você traz os revirar de olhos. Combinação perfeita, né?",
+      "Amante de livros, praias e burritos. Vamos criar nossa própria história.",
+      "Metade viciado em adrenalina, metade fã de cobertor quentinho. Qual é a sua vibe?",
+      "Sempre a fim de uma trilha ou uma corrida noturna no diner. Escolha sua aventura!",
+      "Sou aquele amigo que sempre se atrasa, mas leva as melhores playlists. Quer ouvir?",
+      "A vida é curta demais pra café ruim ou papos chatos. Vamos tornar os dois épicos.",
+      "Metade sonhador, metade realizador, 100% boas vibrações. Pronto pra criar memórias?",
     ]
-    
-    const personalityTags = [
-  ["Capricórnio", "UFRJ", "Gato"],
-  ["Leão", "UFMG", "Cachorro"],
-  ["Virgem", "USP", "Café"],
-  ["Gêmeos", "UFLA", "Viagem"],
-  ["Áries", "UFSC", "Aventura"],
-  ["Touro", "PUC", "Livros"],
-  ["Escorpião", "UEG", "Música"],
-  ["Libra", "CEFET-MG", "Arte"],
-  ["Aquário", "CEFET-SP", "Observar Estrelas"],
-  ["Peixes", "IFMG", "Sonhos"],
-  ["Câncer", "UEPA", "Praia"],
-  ["Sagitário", "IFPR", "Trilha"],
-  ["Capricórnio", "IFRJ", "Cozinha"],
-  ["Leão", "ESFP", "UERJ"],
-  ["Virgem", "IMPA", "Jogos"],
-  ["Gêmeos", "USCS", "Fotografia"],
-  ["Áries", "FMJ", "Esportes"],
-  ["Touro", "INFP", "Natureza"],
-  ["Escorpião", "INTJ", "Mistério"],
-  ["Libra", "ENFJ", "Moda"],
-  ["Aquário", "ENTP", "Tecnologia"],
-  ["Peixes", "ISFJ", "Filmes"],
-  ["Câncer", "INFJ", "Poesia"],
-  ["Sagitário", "ESFP", "Festas"],
-]
 
-const interestTags = [
-  ["Pró-escolha", "Café", "Vidas Negras Importam", "Tatuagens"],
-  ["Ioga", "Sustentabilidade", "Fotografia", "Cozinhar"],
-  ["Academia", "Meditação", "Livros", "Vinho"],
-  ["Viagem", "Música", "Direitos Animais", "Trilha"],
-  ["Arte", "Veganismo", "Filmes", "Aventura"],
-  ["Jogos", "Tecnologia", "Natureza", "Artesanato"],
-  ["Dança", "Justiça Social", "Podcasts", "Assar"],
-  ["Moda", "Meio Ambiente", "Poesia", "Acampar"],
-  ["Esportes", "Saúde Mental", "Jardinagem", "Discos de Vinil"],
-  ["Escrita", "Ação Climática", "Teatro", "Cafeterias"],
-  ["Corrida", "Voluntariado", "Jogos de Tabuleiro", "Comida de Rua"],
-  ["Pintura", "Direitos LGBTQ+", "Shows", "Brechós"],
-  ["Ciclismo", "Atenção Plena", "Ficção Científica", "Cervejarias"],
-  ["Esqui", "Ativismo", "Documentários", "Pôr do Sol"],
-  ["Surfe", "Exploração Urbana", "Quadrinhos", "Cerveja Artesanal"],
-  ["Escalada", "Igualdade", "Jazz", "Carros Antigos"],
-  ["Skate", "Moda Sustentável", "Podcasts", "Food Trucks"],
-  ["Caiaque", "Bem-Estar Animal", "Livros de Fantasia", "Observar Estrelas"],
-  ["Boxe", "Serviço Comunitário", "Filmes Indies", "Sushi"],
-  ["Trilha", "Vida Verde", "Música ao Vivo", "Cerâmica"],
-  ["Natação", "Feminismo", "História", "Churrasco"],
-  ["Fotografia", "Minimalismo", "True Crime", "Viagens de Carro"],
-  ["Dança", "Trabalho Voluntário", "Animação", "Drinques"],
-  ["Canto", "Conservação dos Oceanos", "Romances de Mistério", "Piqueniques"],
-]
+    const personalityTags = [
+      ["Capricórnio", "UFRJ", "Gato"],
+      ["Leão", "UFMG", "Cachorro"],
+      ["Virgem", "USP", "Café"],
+      ["Gêmeos", "UFLA", "Viagem"],
+      ["Áries", "UFSC", "Aventura"],
+      ["Touro", "PUC", "Livros"],
+      ["Escorpião", "UEG", "Música"],
+      ["Libra", "CEFET-MG", "Arte"],
+      ["Aquário", "CEFET-SP", "Observar Estrelas"],
+      ["Peixes", "IFMG", "Sonhos"],
+      ["Câncer", "UEPA", "Praia"],
+      ["Sagitário", "IFPR", "Trilha"],
+      ["Capricórnio", "IFRJ", "Cozinha"],
+      ["Leão", "ESFP", "UERJ"],
+      ["Virgem", "IMPA", "Jogos"],
+      ["Gêmeos", "USCS", "Fotografia"],
+      ["Áries", "FMJ", "Esportes"],
+      ["Touro", "INFP", "Natureza"],
+      ["Escorpião", "INTJ", "Mistério"],
+      ["Libra", "ENFJ", "Moda"],
+      ["Aquário", "ENTP", "Tecnologia"],
+      ["Peixes", "ISFJ", "Filmes"],
+      ["Câncer", "INFJ", "Poesia"],
+      ["Sagitário", "ESFP", "Festas"],
+    ]
+
+    const interestTags = [
+      ["Pró-escolha", "Café", "Vidas Negras Importam", "Tatuagens"],
+      ["Ioga", "Sustentabilidade", "Fotografia", "Cozinhar"],
+      ["Academia", "Meditação", "Livros", "Vinho"],
+      ["Viagem", "Música", "Direitos Animais", "Trilha"],
+      ["Arte", "Veganismo", "Filmes", "Aventura"],
+      ["Jogos", "Tecnologia", "Natureza", "Artesanato"],
+      ["Dança", "Justiça Social", "Podcasts", "Assar"],
+      ["Moda", "Meio Ambiente", "Poesia", "Acampar"],
+      ["Esportes", "Saúde Mental", "Jardinagem", "Discos de Vinil"],
+      ["Escrita", "Ação Climática", "Teatro", "Cafeterias"],
+      ["Corrida", "Voluntariado", "Jogos de Tabuleiro", "Comida de Rua"],
+      ["Pintura", "Direitos LGBTQ+", "Shows", "Brechós"],
+      ["Ciclismo", "Atenção Plena", "Ficção Científica", "Cervejarias"],
+      ["Esqui", "Ativismo", "Documentários", "Pôr do Sol"],
+      ["Surfe", "Exploração Urbana", "Quadrinhos", "Cerveja Artesanal"],
+      ["Escalada", "Igualdade", "Jazz", "Carros Antigos"],
+      ["Skate", "Moda Sustentável", "Podcasts", "Food Trucks"],
+      ["Caiaque", "Bem-Estar Animal", "Livros de Fantasia", "Observar Estrelas"],
+      ["Boxe", "Serviço Comunitário", "Filmes Indies", "Sushi"],
+      ["Trilha", "Vida Verde", "Música ao Vivo", "Cerâmica"],
+      ["Natação", "Feminismo", "História", "Churrasco"],
+      ["Fotografia", "Minimalismo", "True Crime", "Viagens de Carro"],
+      ["Dança", "Trabalho Voluntário", "Animação", "Drinques"],
+      ["Canto", "Conservação dos Oceanos", "Romances de Mistério", "Piqueniques"],
+    ]
     
     const orientations = ["Hétero", "Bissexual", "Pansexual", "Queer"]
 
     for (let i = 0; i < 3; i++) {
       let profileGender: "masculino" | "feminino"
       let profileAgeRange: keyof typeof maleNames
-
       if (selectedGender === "nao-binario") {
         profileGender = Math.random() < 0.5 ? "masculino" : "feminino"
         const ageRanges: (keyof typeof maleNames)[] = ["18-24", "25-34", "35-44", "45-54"]
@@ -696,51 +690,23 @@ const interestTags = [
         profileAgeRange = ageRange as keyof typeof maleNames
       }
 
-      let names: string[] = [];
-      let photoArray: string[] = [];
-
-      // LÓGICA REVERTIDA E CORRIGIDA PARA AGRUPAR FOTOS POR FAIXA ETÁRIA
+      const names = profileGender === "masculino" ? maleNames[profileAgeRange] : femaleNames[profileAgeRange]
+      let photoArray: string[] = []
       if (profileGender === "masculino") {
-        names = maleNames[profileAgeRange] || []
-        switch (profileAgeRange) {
-          case "18-24":
-            photoArray = malePhotos1824
-            break
-          case "25-34":
-            photoArray = malePhotos2534
-            break
-          case "35-44":
-            photoArray = malePhotos3544
-            break
-          case "45-54":
-            photoArray = malePhotos4554
-            break
-          default:
-            photoArray = malePhotos2534 // Fallback
-        }
+        if (profileAgeRange === "18-24") photoArray = malePhotos1824
+        else if (profileAgeRange === "25-34") photoArray = malePhotos2534
+        else if (profileAgeRange === "35-44") photoArray = malePhotos3544
+        else photoArray = malePhotos4554
       } else {
-        // feminino
-        names = femaleNames[profileAgeRange] || []
-        switch (profileAgeRange) {
-          case "18-24":
-            photoArray = femalePhotos1824
-            break
-          case "25-34":
-            photoArray = femalePhotos2534
-            break
-          case "35-44":
-            photoArray = femalePhotos3544
-            break
-          case "45-54":
-            photoArray = femalePhotos4554
-            break
-          default:
-            photoArray = femalePhotos2534 // Fallback
-        }
+        if (profileAgeRange === "18-24") photoArray = femalePhotos1824
+        else if (profileAgeRange === "25-34") photoArray = femalePhotos2534
+        else if (profileAgeRange === "35-44") photoArray = femalePhotos3544
+        else photoArray = femalePhotos4554
       }
 
-      const name = getUniqueItem(names, usedNames)
+      const name = getUniqueItem(names || [], usedNames)
       const profileImage = getUniqueItem(photoArray, usedImages)
+      // CORREÇÃO APLICADA AQUI
       const age = Math.floor(Math.random() * 7) + (Number.parseInt(profileAgeRange.split("-")[0]) || 25)
 
       profiles.push({
@@ -754,12 +720,8 @@ const interestTags = [
         distance: `${Math.floor(Math.random() * 15) + 1} km de distância`,
         orientation: orientations[Math.floor(Math.random() * orientations.length)],
         verified: Math.random() > 0.5,
-        // Adicionando os campos que faltavam para o modal
-        personality: ["Capricórnio", "INTJ", "Café"],
-        interests: ["Viagens", "Música", "Trilhas"]
       })
     }
-
     setGeneratedProfiles(profiles)
   }, [selectedGender, ageRange, city])
 
@@ -1038,9 +1000,8 @@ const interestTags = [
                               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
                             </svg>
                             <p className="text-[#444444] text-base sm:text-lg leading-relaxed font-normal">
-                              O melhor investimento que fiz na minha vida, muito mais em conta que contratar um detetive
-                              particular. Me poupou meses de incerteza e me deu o encerramento que eu precisava. Meus
-                              instintos estavam certos o tempo todo.
+                              O melhor investimento que fiz na minha vida, muito mais em conta que contratar um detetive particular. Me poupou meses de incerteza e me deu o encerramento que
+                              eu precisava. Meus instintos estavam certos o tempo todo.
                             </p>
                           </div>
                           <div className="flex items-center text-[#FFD700] text-sm sm:text-base gap-1">
@@ -1832,7 +1793,7 @@ const interestTags = [
                       className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 text-sm sm:text-base md:text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6"
                     >
                       <span className="block text-center leading-tight px-2">
-                        🔓 DESBLOQUEAR RELATÓRIO COMPLETO
+                        🔓 DESBLOQUEAR MEU RELATÓRIO - ESTOU PRONTO(A) PARA A VERDADE
                       </span>
                     </Button>
                     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
@@ -1999,11 +1960,11 @@ const interestTags = [
                         </div>
                         <div className="mb-6 sm:mb-8">
                           <div className="flex items-center justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
-                            <div className="text-2xl sm:text-3xl text-gray-400 line-through">R$147,00</div>
-                            <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">R$47,00</div>
+                            <div className="text-2xl sm:text-3xl text-gray-400 line-through">R$47,00</div>
+                            <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">R$17,00</div>
                           </div>
                           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-bold mb-4">
-                            🔥 70% OFF - TEMPO LIMITADO
+                            🔥 62% OFF - TEMPO LIMITADO
                           </div>
                           <p className="text-sm sm:text-base text-gray-600 font-medium">
                             Pagamento único para acesso vitalício ao seu relatório completo

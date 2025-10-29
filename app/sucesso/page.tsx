@@ -17,13 +17,13 @@ export default function PaginaSucesso() {
         <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6 animate-pulse" />
         <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-4">Pagamento Confirmado!</h1>
         <p className="text-gray-600 text-base sm:text-lg mb-8">
-          Seu acesso foi liberado. Clique no botão abaixo para acessar o relatorio completo.
+          Seu acesso foi liberado. Enviamos todos os detalhes e o link para o seu relatório completo para o seu e-mail.
         </p>
         <a
-          href="https://profile-investigator-1fab208c.base44.app/Dashboard" // Coloque um link para o seu site principal ou para o login, se houver
+          href="#" // Coloque um link para o seu site principal ou para o login, se houver
           className="bg-green-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-green-600 transition-colors"
         >
-          Ver relatório completo
+          Voltar ao Início
         </a>
       </motion.div>
     </div>
