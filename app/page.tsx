@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useRouter } from 'next/navigation'; // Adicione esta linha
+import { useRouter, useSearchParams } from "next/navigation" // Adicionado useSearchParams para capturar UTMs
 import {
   Search,
   Wifi,
@@ -158,7 +158,7 @@ const femalePhotos4554 = [
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/1RCbILUlOe_6Oh3C6E1a9F/public/female/45-54/female-45-54-quiet_winner_76.jpg",
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/uGH4sQMZaiDPeeyCrYTD2K/public/female/45-54/female-45-54-rileysweetnsexy.jpg",
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/utg8RGec_BylfuoPKcczJ0/public/female/45-54/female-45-54-rose.curvy.xxx.png",
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/W8GGhX3aDfLrw4OPchlLIa/public/female/45-54/female-45-54-solymx2.jpg",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/W8GGhX3aDfLrw4OPchlLIa/public/female/45-54/female-45-54-Solymx2.jpg",
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/NpqvlUBeE3bPdFwQAhge5Z/public/female/45-54/female-45-54-stellahere.jpg",
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_dZrimM68aR5IMjhoid0WpfWib30j/fKgrGvdsa_GC0eLH-l5HTM/public/female/45-54/female-45-54-usapippa.jpg",
 ]
@@ -178,6 +178,7 @@ const femaleNames = {
 
 export default function SigiloX() {
   const router = useRouter()
+  const searchParams = useSearchParams() // Hook para capturar parâmetros da URL
   const [currentStep, setCurrentStep] = useState<AppStep>("landing")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [selectedGender, setSelectedGender] = useState("")
@@ -216,6 +217,28 @@ export default function SigiloX() {
   const [customerEmail, setCustomerEmail] = useState("")
   const [customerDocument, setCustomerDocument] = useState("")
   const [selectedBumps, setSelectedBumps] = useState({ whats: false, insta: false, facebook: false, gps: false })
+
+  const [utmParams, setUtmParams] = useState({
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
+    utm_content: "",
+    utm_term: "",
+  })
+
+  useEffect(() => {
+    const utms = {
+      utm_source: searchParams.get("utm_source") || "",
+      utm_medium: searchParams.get("utm_medium") || "",
+      utm_campaign: searchParams.get("utm_campaign") || "",
+      utm_content: searchParams.get("utm_content") || "",
+      utm_term: searchParams.get("utm_term") || "",
+    }
+    setUtmParams(utms)
+
+    // Log para debug (pode remover em produção)
+    console.log("[v0] UTM Parameters captured:", utms)
+  }, [searchParams])
 
   const canPay = customerName && customerEmail.includes("@") && customerDocument.length >= 11
   const orderBumps = [
@@ -270,7 +293,12 @@ export default function SigiloX() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           selectedBumps: selectedBumpIds,
-          customer: { email: customerEmail, name: customerName, document: customerDocument.replace(/\D/g, "") },
+          customer: {
+            email: customerEmail,
+            name: customerName,
+            document: customerDocument.replace(/\D/g, ""),
+            ...utmParams,
+          },
         }),
       })
       const data = await response.json()
@@ -284,32 +312,31 @@ export default function SigiloX() {
   }
 
   useEffect(() => {
-        // Se não temos um resultado de pagamento com ID, não faz nada
-        if (!paymentResult?.id) {
-            return;
+    // Se não temos um resultado de pagamento com ID, não faz nada
+    if (!paymentResult?.id) {
+      return
+    }
+
+    // Começa a verificar o status a cada 3 segundos
+    const intervalId = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/check-status/${paymentResult.id}`)
+        const data = await response.json()
+
+        // Se o status for "PAID", limpa o intervalo e redireciona
+        if (data.status === "PAID") {
+          clearInterval(intervalId)
+          router.push("/sucesso") // Redireciona para a página de sucesso
         }
+      } catch (error) {
+        console.error("Erro ao verificar status do pagamento:", error)
+        // Opcional: parar de tentar após X falhas
+      }
+    }, 3000) // Verifica a cada 3 segundos
 
-        // Começa a verificar o status a cada 3 segundos
-        const intervalId = setInterval(async () => {
-            try {
-                const response = await fetch(`/api/check-status/${paymentResult.id}`);
-                const data = await response.json();
-
-                // Se o status for "PAID", limpa o intervalo e redireciona
-                if (data.status === 'PAID') {
-                    clearInterval(intervalId);
-                    router.push('/sucesso'); // Redireciona para a página de sucesso
-                }
-            } catch (error) {
-                console.error("Erro ao verificar status do pagamento:", error);
-                // Opcional: parar de tentar após X falhas
-            }
-        }, 3000); // Verifica a cada 3 segundos
-
-        // Função de limpeza: para o intervalo se o componente for desmontado
-        return () => clearInterval(intervalId);
-
-    }, [paymentResult, router]); // Dependências do useEffect
+    // Função de limpeza: para o intervalo se o componente for desmontado
+    return () => clearInterval(intervalId)
+  }, [paymentResult, router]) // Dependências do useEffect
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -723,7 +750,7 @@ export default function SigiloX() {
       })
     }
     setGeneratedProfiles(profiles)
-  }, [selectedGender, ageRange, city])
+  }, [selectedGender, ageRange, city, setGeneratedProfiles])
 
   const openProfileModal = (profile: any) => {
     setSelectedProfile(profile)
@@ -1000,8 +1027,9 @@ export default function SigiloX() {
                               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
                             </svg>
                             <p className="text-[#444444] text-base sm:text-lg leading-relaxed font-normal">
-                              O melhor investimento que fiz na minha vida, muito mais em conta que contratar um detetive particular. Me poupou meses de incerteza e me deu o encerramento que
-                              eu precisava. Meus instintos estavam certos o tempo todo.
+                              O melhor investimento que fiz na minha vida, muito mais em conta que contratar um detetive
+                              particular. Me poupou meses de incerteza e me deu o encerramento que eu precisava. Meus
+                              instintos estavam certos o tempo todo.
                             </p>
                           </div>
                           <div className="flex items-center text-[#FFD700] text-sm sm:text-base gap-1">
@@ -1807,120 +1835,97 @@ export default function SigiloX() {
 
                 {isProfileModalOpen && selectedProfile && (
                   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    {/* ... código do modal do perfil ... */}
-                    {isProfileModalOpen && selectedProfile && (
-                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                        <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-                          {/* Header com botão de fechar */}
-                          <div className="relative">
-                            <button
-                              onClick={closeProfileModal}
-                              className="absolute top-4 left-4 z-10 w-10 h-10 bg-white bg-opacity-80 rounded-full flex items-center justify-center shadow-lg"
-                            >
-                              <X className="w-5 h-5 text-gray-700" />
-                            </button>
-
-                            {/* Imagem do Perfil */}
-                            <div className="relative h-96 bg-gray-200 rounded-t-2xl overflow-hidden">
-                              <img
-                                src={selectedProfile.image || "/placeholder.svg"}
-                                alt={selectedProfile.name}
-                                className="w-full h-full object-cover"
-                              />
-
-                              {/* Overlay de gradiente */}
-                              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent"></div>
-
-                              {/* Overlay com nome e informações básicas */}
-                              <div className="absolute bottom-4 left-4 right-4 text-white">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <h2 className="text-3xl font-bold">{selectedProfile.name}</h2>
-                                  {selectedProfile.verified && (
-                                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                          fillRule="evenodd"
-                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                          clipRule="evenodd"
-                                        />
-                                      </svg>
-                                    </div>
-                                  )}
+                    <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+                      <div className="relative">
+                        <button
+                          onClick={closeProfileModal}
+                          className="absolute top-4 left-4 z-10 w-10 h-10 bg-white bg-opacity-80 rounded-full flex items-center justify-center shadow-lg"
+                        >
+                          <X className="w-5 h-5 text-gray-700" />
+                        </button>
+                        <div className="relative h-96 bg-gray-200 rounded-t-2xl overflow-hidden">
+                          <img
+                            src={selectedProfile.image || "/placeholder.svg"}
+                            alt={selectedProfile.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent"></div>
+                          <div className="absolute bottom-4 left-4 right-4 text-white">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h2 className="text-3xl font-bold">{selectedProfile.name}</h2>
+                              {selectedProfile.verified && (
+                                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
                                 </div>
-
-                                <div className="flex items-center gap-4 text-sm opacity-90">
-                                  <div className="flex items-center gap-1">
-                                    <User className="w-4 h-4" />
-                                    <span>{selectedProfile.orientation}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <MapPin className="w-4 h-4" />
-                                    <span>{selectedProfile.location}</span>
-                                  </div>
-                                </div>
-
-                                <div className="flex items-center gap-1 text-sm opacity-90 mt-1">
-                                  <MapPin className="w-4 h-4" />
-                                  <span>{selectedProfile.distance}</span>
-                                </div>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-4 text-sm opacity-90">
+                              <div className="flex items-center gap-1">
+                                <User className="w-4 h-4" />
+                                <span>{selectedProfile.orientation}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-4 h-4" />
+                                <span>{selectedProfile.location}</span>
                               </div>
                             </div>
-                          </div>
-
-                          {/* Conteúdo do Perfil */}
-                          <div className="p-6 space-y-6">
-                            {/* Seção Sobre Mim */}
-                            <div>
-                              <h3 className="text-xl font-bold text-gray-900 mb-3">Sobre Mim</h3>
-                              <p className="text-gray-700 leading-relaxed">{selectedProfile.bio}</p>
-                            </div>
-
-                            {/* Tags de Personalidade */}
-                            {selectedProfile.personality && (
-                              <div>
-                                <div className="flex flex-wrap gap-2">
-                                  {selectedProfile.personality.map((tag: string, index: number) => (
-                                    <span
-                                      key={index}
-                                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-300"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Seção Meus Interesses */}
-                            {selectedProfile.interests && (
-                              <div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">Meus Interesses</h3>
-                                <div className="flex flex-wrap gap-2">
-                                  {selectedProfile.interests.map((interest: string, index: number) => (
-                                    <span
-                                      key={index}
-                                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-300"
-                                    >
-                                      {interest}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Botões de Ação */}
-                            <div className="flex gap-4 pt-4">
-                              <button className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors">
-                                Passar
-                              </button>
-                              <button className="flex-1 bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 rounded-full font-semibold hover:bg-pink-600 hover:to-red-600 transition-colors">
-                                Curtir
-                              </button>
+                            <div className="flex items-center gap-1 text-sm opacity-90 mt-1">
+                              <MapPin className="w-4 h-4" />
+                              <span>{selectedProfile.distance}</span>
                             </div>
                           </div>
                         </div>
                       </div>
-                    )}
+                      <div className="p-6 space-y-6">
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900 mb-3">Sobre Mim</h3>
+                          <p className="text-gray-700 leading-relaxed">{selectedProfile.bio}</p>
+                        </div>
+                        {selectedProfile.personality && (
+                          <div>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedProfile.personality.map((tag: string, index: number) => (
+                                <span
+                                  key={index}
+                                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-300"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {selectedProfile.interests && (
+                          <div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-3">Meus Interesses</h3>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedProfile.interests.map((interest: string, index: number) => (
+                                <span
+                                  key={index}
+                                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-300"
+                                >
+                                  {interest}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        <div className="flex gap-4 pt-4">
+                          <button className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors">
+                            Passar
+                          </button>
+                          <button className="flex-1 bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 rounded-full font-semibold hover:bg-pink-600 hover:to-red-600 transition-colors">
+                            Curtir
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -1988,7 +1993,7 @@ export default function SigiloX() {
                           </div>
                         </div>
                         <div className="text-center mb-6 sm:mb-8">
-                          <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6">
+                          <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6 text-center">
                             Turbine Sua Investigação (Opcional)
                           </h3>
                           <div className="space-y-4">
@@ -2088,7 +2093,6 @@ export default function SigiloX() {
                           Escaneie o QR Code com o app do seu banco ou use o código Copia e Cola.
                         </p>
                         <div className="flex justify-center p-4 bg-gray-100 rounded-lg">
-                          {/* LÓGICA DO QR CODE CORRIGIDA */}
                           <QRCodeSVG value={paymentResult.pix.payload} size={256} />
                         </div>
                         <div className="mt-6">
