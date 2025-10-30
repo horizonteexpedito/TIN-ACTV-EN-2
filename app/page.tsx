@@ -349,7 +349,7 @@ export default function SigiloX() {
   useEffect(() => {
     const fetchWhatsAppPhoto = async () => {
       // Garante que o número debounced tem pelo menos 10 dígitos (ex: 5511987654321)
-      if (debouncedPhone.length < 10) { 
+      if (debouncedPhone.length < 10) {
         setProfilePhoto(null)
         setIsPhotoPrivate(false)
         return
@@ -382,14 +382,14 @@ export default function SigiloX() {
   }, [debouncedPhone])
 
   const handlePhoneChange = (value: string) => {
-    const currentCountryCode = selectedCountry.code;
+    const currentCountryCode = selectedCountry.code
 
     // Apenas atualiza o estado se o novo valor começar com o código do país.
     // Isto impede que o usuário apague o código.
     if (value.startsWith(currentCountryCode)) {
-      setPhoneNumber(value);
+      setPhoneNumber(value)
     }
-  }; 
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -540,44 +540,44 @@ export default function SigiloX() {
 
       const interval = setInterval(() => {
         setGeneratingProgress((prevProgress) => {
-          const newProgress = Math.min(prevProgress + 100 / 75, 100);
+          const newProgress = Math.min(prevProgress + 100 / 75, 100)
 
           // Atualiza os passos concluídos de forma segura, usando o estado mais recente
           setStepCompleted((prevSteps) => {
             if (newProgress >= 33 && !prevSteps.profilePhotos) {
-              return { ...prevSteps, profilePhotos: true };
+              return { ...prevSteps, profilePhotos: true }
             }
             if (newProgress >= 66 && !prevSteps.conversations) {
-              return { ...prevSteps, conversations: true };
+              return { ...prevSteps, conversations: true }
             }
             if (newProgress >= 90 && !prevSteps.finalizing) {
-              return { ...prevSteps, finalizing: true };
+              return { ...prevSteps, finalizing: true }
             }
-            return prevSteps; // Retorna o estado anterior se nenhuma condição for atendida
-          });
+            return prevSteps // Retorna o estado anterior se nenhuma condição for atendida
+          })
 
           // Atualiza a mensagem de progresso
-          const currentMessage = messages.find((m) => newProgress >= m.progress && newProgress < m.progress + 20);
+          const currentMessage = messages.find((m) => newProgress >= m.progress && newProgress < m.progress + 20)
           if (currentMessage) {
-            setGeneratingMessage(currentMessage.message);
+            setGeneratingMessage(currentMessage.message)
           }
 
           // Quando o progresso chega a 100%, avança para o próximo passo
           if (newProgress >= 100) {
             setTimeout(() => {
-              setCurrentStep("result");
-            }, 1500);
+              setCurrentStep("result")
+            }, 1500)
           }
-          
-          return newProgress;
-        });
-      }, 400);
+
+          return newProgress
+        })
+      }, 400)
 
       // Função de limpeza para parar o intervalo quando o componente desmontar
-      return () => clearInterval(interval);
+      return () => clearInterval(interval)
     }
     // A DEPENDÊNCIA `stepCompleted` FOI REMOVIDA PARA QUEBRAR O LOOP INFINITO
-  }, [currentStep, city]);
+  }, [currentStep, city])
 
   useEffect(() => {
     if (["generating", "result", "offer"].includes(currentStep)) {
@@ -650,7 +650,6 @@ export default function SigiloX() {
     const matchLocation =
       city || ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba"][Math.floor(Math.random() * 4)]
     const sampleBios = [
-  
       "Sou o que você ganha se misturar o Whindersson com o Cauã Reymond. Sou engraçado sem querer e minha mãe me acha lindo.",
       "Aventureiro, amante de café e entusiasta de cachorros. Procurando alguém para explorar a cidade comigo!",
       "Fã de academia de dia, maratonista de Netflix à noite. Vamos tomar um açaí e falar sobre a vida.",
@@ -684,21 +683,21 @@ export default function SigiloX() {
       ["Escorpião", "UEG", "Música"],
       ["Libra", "CEFET-MG", "Arte"],
       ["Aquário", "CEFET-SP", "Observar Estrelas"],
-      ["Peixes", "IFMG", "Sonhos"],
+      ["Peixes", "IMPA", "Sonhos"],
       ["Câncer", "UEPA", "Praia"],
-      ["Sagitário", "IFPR", "Trilha"],
-      ["Capricórnio", "IFRJ", "Cozinha"],
+      ["Sagitário", "IFRJ", "Cozinha"],
+      ["Capricórnio", "IFMG", "Jogos"],
       ["Leão", "ESFP", "UERJ"],
-      ["Virgem", "IMPA", "Jogos"],
-      ["Gêmeos", "USCS", "Fotografia"],
-      ["Áries", "FMJ", "Esportes"],
-      ["Touro", "INFP", "Natureza"],
-      ["Escorpião", "INTJ", "Mistério"],
-      ["Libra", "ENFJ", "Moda"],
-      ["Aquário", "ENTP", "Tecnologia"],
-      ["Peixes", "ISFJ", "Filmes"],
-      ["Câncer", "INFJ", "Poesia"],
-      ["Sagitário", "ESFP", "Festas"],
+      ["Virgem", "USCS", "Fotografia"],
+      ["Gêmeos", "FMJ", "Esportes"],
+      ["Áries", "INFP", "Natureza"],
+      ["Touro", "INTJ", "Mistério"],
+      ["Escorpião", "ENFJ", "Moda"],
+      ["Libra", "ENTP", "Tecnologia"],
+      ["Aquário", "ISFJ", "Filmes"],
+      ["Peixes", "INFJ", "Poesia"],
+      ["Câncer", "ESFP", "Festas"],
+      ["Sagitário", "ISTJ", "Negócios"],
     ]
 
     const interestTags = [
@@ -743,26 +742,44 @@ export default function SigiloX() {
         profileAgeRange = ageRange as keyof typeof maleNames
       }
 
-      let names: string[] = [];
-      let photoArray: string[] = [];
+      let names: string[] = []
+      let photoArray: string[] = []
 
       if (profileGender === "masculino") {
         names = maleNames[profileAgeRange] || []
         switch (profileAgeRange) {
-          case "18-24": photoArray = malePhotos1824; break;
-          case "25-34": photoArray = malePhotos2534; break;
-          case "35-44": photoArray = malePhotos3544; break;
-          case "45-54": photoArray = malePhotos4554; break;
-          default: photoArray = malePhotos2534;
+          case "18-24":
+            photoArray = malePhotos1824
+            break
+          case "25-34":
+            photoArray = malePhotos2534
+            break
+          case "35-44":
+            photoArray = malePhotos3544
+            break
+          case "45-54":
+            photoArray = malePhotos4554
+            break
+          default:
+            photoArray = malePhotos2534
         }
       } else {
         names = femaleNames[profileAgeRange] || []
         switch (profileAgeRange) {
-          case "18-24": photoArray = femalePhotos1824; break;
-          case "25-34": photoArray = femalePhotos2534; break;
-          case "35-44": photoArray = femalePhotos3544; break;
-          case "45-54": photoArray = femalePhotos4554; break;
-          default: photoArray = femalePhotos2534;
+          case "18-24":
+            photoArray = femalePhotos1824
+            break
+          case "25-34":
+            photoArray = femalePhotos2534
+            break
+          case "35-44":
+            photoArray = femalePhotos3544
+            break
+          case "45-54":
+            photoArray = femalePhotos4554
+            break
+          default:
+            photoArray = femalePhotos2534
         }
       }
 
@@ -771,11 +788,22 @@ export default function SigiloX() {
       const age = Math.floor(Math.random() * 7) + (Number.parseInt(profileAgeRange.split("-")[0]) || 25)
 
       profiles.push({
-        name, age, lastSeen: `há ${Math.floor(Math.random() * 24)}h`, description: "Usuário ativo, frequentemente online", image: profileImage, bio: sampleBios[Math.floor(Math.random() * sampleBios.length)], location: `Mora em ${matchLocation}`, distance: `${Math.floor(Math.random() * 15) + 1} km de distância`, orientation: orientations[Math.floor(Math.random() * orientations.length)], verified: Math.random() > 0.5, personality: ["Capricórnio", "INTJ", "Café"], interests: ["Viagens", "Música", "Trilhas"]
+        name,
+        age,
+        lastSeen: `há ${Math.floor(Math.random() * 24)}h`,
+        description: "Usuário ativo, frequentemente online",
+        image: profileImage,
+        bio: sampleBios[Math.floor(Math.random() * sampleBios.length)],
+        location: `Mora em ${matchLocation}`,
+        distance: `${Math.floor(Math.random() * 15) + 1} km de distância`,
+        orientation: orientations[Math.floor(Math.random() * orientations.length)],
+        verified: Math.random() > 0.5,
+        personality: personalityTags[Math.floor(Math.random() * personalityTags.length)],
+        interests: interestTags[Math.floor(Math.random() * interestTags.length)],
       })
     }
     setGeneratedProfiles(profiles)
-  }, 
+  }, [selectedGender, ageRange, city]) // Added missing useCallback dependencies
 
   const openProfileModal = (profile: any) => {
     setSelectedProfile(profile)
