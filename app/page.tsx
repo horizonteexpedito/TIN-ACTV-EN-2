@@ -71,28 +71,24 @@ const SalesProofPopup = ({ show, onClose }: { show: boolean; onClose: () => void
 
 // ... (Arrays de fotos e nomes - sem alterações)
 const malePhotos1824 = [
-  "https://blobs.vusercontent.com/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/wnKjUSBWRZInK4LpeuFHkf/public/male/18-24/male-18-24-armeyes.jpg", // male-18-24-male-armeyes.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/VgPr8U1jv0PMJRGn_WF3g5/public/male/18-24/male-18-24-dieego69.jpg", // male-18-24-male-dieego69.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/OEnSU5IXknlLZt_61-IyMR/public/male/18-24/male-18-24-eeerik.jpg", // male-18-24-male-eeerik.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/WiXsdGIOZnVskdBJDrx3Fq/public/male/18-24/male-18-24-franrick.jpg", // male-18-24-male-franrick.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/Yd7Epa8je2XVVsJ--OxuhO/public/male/18-24/male-18-24-joanraay.jpg", // male-18-24-male-joanraay.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/erTcOnp4NYRQ6xNzWhEUVm/public/male/18-24/male-18-24-maxnastyi.jpg", // male-18-24-male-maxnastyi.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/9n5OIVkXmm1bekn6N8ZNRH/public/male/18-24/male-18-24-nahuelbaby.jpg", // male-18-24-male-nahuelbaby.jpg
 ]
 const malePhotos2534 = [
-  "https://blobs.vusercontent.com/blob/male-25-34-male-andyreiddvip.jpg-JfW3WQX7spc75NBSfoH1ink8qFF9bg.jpeg", // male-25-34-male-andyreiddvip.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-franchescox.jpg-SSxdBZNDEbogmHbY6WPnSteKDSLnOy.jpeg", // male-25-34-male-franchescox.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-augst_ts.jpg-nu4ttxScgp63AQU9M9uUAQw6ujbhmq.jpeg", // male-25-34-male-augst_ts.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-nanoargentino.jpg-MupFxTgua62ieJ17as9NXcynMYNbgN.jpeg", // male-25-34-male-nanoargentino.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-shyguyishere.jpg-94TD8ArDNT2ZBDw0N2M0G9hJah6UKk.jpeg", // male-25-34-male-shyguyishere.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-carterlander08.jpg-yVyzRYbS0aGVhbvEX0Mjss5h51nySK.jpeg", // male-25-34-male-carterlander08.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-matthewteddy.jpg-gGny9NX0j88eVzP1iJqKZPEVWZ0Ogs.jpeg", // male-25-34-male-matthewteddy.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-tomidiazj.jpg-uuVCkrFp6AHIQkyUkoUnQ4seoDKeL7.jpeg", // male-25-34-male-tomidiazj.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-latinblondarg.jpg-erLXKeyVnCQFjS4QaZLFLFhu1I0yro.jpeg", // male-25-34-male-latinblondarg.jpg
-  "https://blobs.vusercontent.com/blob/male-25-34-male-bushidoboy.jpg-Ye68jGO1s2usgp6AabdJo4bGpnxCTl.jpeg", // male-25-34-male-bushidoboy.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/Nb9LP_hcjoKud8StzvXYWq/public/male/25-34/male-25-34-andyreiddvip.jpg", // male-25-34-male-andyreiddvip.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/4UycxLDD9se6DNNIq3Wh1Z/public/male/25-34/male-25-34-franchescox.jpg", // male-25-34-male-franchescox.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/LWm0ddOOgOx4AM8clV1tVz/public/male/25-34/male-25-34-nanoargentino.jpg", // male-25-34-male-nanoargentino.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/f12hJkY8dM98ntQikG-jgF/public/male/25-34/male-25-34-shyguyishere.jpg", // male-25-34-male-shyguyishere.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/_RBvE4AlccS38tdlMVSbgJ/public/male/25-34/male-25-34-carterlander08.jpg", // male-25-34-male-carterlander08.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/7N-yKtgC8KcqldTMtaVyPF/public/male/25-34/male-25-34-matthewteddy.jpg", // male-25-34-male-matthewteddy.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/ue-COQsgTqLx9DAAyOX0rM/public/male/25-34/male-25-34-tomidiazj.jpg", // male-25-34-male-tomidiazj.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/GNLNKs3yZ0-sCuBLkz-iK1/public/male/25-34/male-25-34-latinblondarg.jpg", // male-25-34-male-latinblondarg.jpg
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_AIHEDjC1Q2A5O6szkg73PCGCAF3t/XCZEgjardkGCbD2mZ4Os4_/public/male/25-34/male-25-34-bushidoboy.jpg", // male-25-34-male-bushidoboy.jpg
 ]
 
 const malePhotos3544 = [
@@ -673,7 +669,7 @@ export default function SigiloX() {
       "Metade sonhador, metade realizador, 100% boas vibrações. Pronto pra criar memórias?",
     ]
 
-    const personalityTags = [
+      const personalityTags = [
       ["Capricórnio", "UFRJ", "Gato"],
       ["Leão", "UFMG", "Cachorro"],
       ["Virgem", "USP", "Café"],
@@ -742,44 +738,26 @@ export default function SigiloX() {
         profileAgeRange = ageRange as keyof typeof maleNames
       }
 
-      let names: string[] = []
-      let photoArray: string[] = []
+      let names: string[] = [];
+      let photoArray: string[] = [];
 
       if (profileGender === "masculino") {
         names = maleNames[profileAgeRange] || []
         switch (profileAgeRange) {
-          case "18-24":
-            photoArray = malePhotos1824
-            break
-          case "25-34":
-            photoArray = malePhotos2534
-            break
-          case "35-44":
-            photoArray = malePhotos3544
-            break
-          case "45-54":
-            photoArray = malePhotos4554
-            break
-          default:
-            photoArray = malePhotos2534
+          case "18-24": photoArray = malePhotos1824; break;
+          case "25-34": photoArray = malePhotos2534; break;
+          case "35-44": photoArray = malePhotos3544; break;
+          case "45-54": photoArray = malePhotos4554; break;
+          default: photoArray = malePhotos2534;
         }
       } else {
         names = femaleNames[profileAgeRange] || []
         switch (profileAgeRange) {
-          case "18-24":
-            photoArray = femalePhotos1824
-            break
-          case "25-34":
-            photoArray = femalePhotos2534
-            break
-          case "35-44":
-            photoArray = femalePhotos3544
-            break
-          case "45-54":
-            photoArray = femalePhotos4554
-            break
-          default:
-            photoArray = femalePhotos2534
+          case "18-24": photoArray = femalePhotos1824; break;
+          case "25-34": photoArray = femalePhotos2534; break;
+          case "35-44": photoArray = femalePhotos3544; break;
+          case "45-54": photoArray = femalePhotos4554; break;
+          default: photoArray = femalePhotos2534;
         }
       }
 
@@ -788,22 +766,17 @@ export default function SigiloX() {
       const age = Math.floor(Math.random() * 7) + (Number.parseInt(profileAgeRange.split("-")[0]) || 25)
 
       profiles.push({
-        name,
-        age,
-        lastSeen: `há ${Math.floor(Math.random() * 24)}h`,
-        description: "Usuário ativo, frequentemente online",
-        image: profileImage,
-        bio: sampleBios[Math.floor(Math.random() * sampleBios.length)],
-        location: `Mora em ${matchLocation}`,
-        distance: `${Math.floor(Math.random() * 15) + 1} km de distância`,
-        orientation: orientations[Math.floor(Math.random() * orientations.length)],
-        verified: Math.random() > 0.5,
-        personality: personalityTags[Math.floor(Math.random() * personalityTags.length)],
-        interests: interestTags[Math.floor(Math.random() * interestTags.length)],
+        name, age, lastSeen: `há ${Math.floor(Math.random() * 24)}h`, description: "Usuário ativo, frequentemente online", image: profileImage, bio: sampleBios[Math.floor(Math.random() * sampleBios.length)], location: `Mora em ${matchLocation}`, distance: `${Math.floor(Math.random() * 15) + 1} km de distância`, orientation: orientations[Math.floor(Math.random() * orientations.length)], verified: Math.random() > 0.5, personality: ["Capricórnio", "INTJ", "Café"], interests: ["Viagens", "Música", "Trilhas"]
       })
     }
     setGeneratedProfiles(profiles)
-  }, [selectedGender, ageRange, city]) // Added missing useCallback dependencies
+  }, 
+  // ====================================================================
+  // ▼▼▼ A CORREÇÃO ESTÁ AQUI ▼▼▼
+  // Adicionando TODAS as dependências externas que a função usa.
+  // ====================================================================
+  [selectedGender, ageRange, city, setGeneratedProfiles]
+);
 
   const openProfileModal = (profile: any) => {
     setSelectedProfile(profile)
