@@ -639,8 +639,10 @@ export default function SigiloX() {
     const getUniqueItem = (sourceArray: string[], usedArray: string[]) => {
       if (!sourceArray || sourceArray.length === 0) return "/placeholder.svg"
       const availableItems = sourceArray.filter((item) => !usedArray.includes(item))
-      const source = availableItems.length > 0 ? availableItems : sourceArray
-      const selectedItem = source[Math.floor(Math.random() * source.length)]
+      if (availableItems.length === 0) {
+        return sourceArray[Math.floor(Math.random() * sourceArray.length)]
+      }
+      const selectedItem = availableItems[Math.floor(Math.random() * availableItems.length)]
       usedArray.push(selectedItem)
       return selectedItem
     }
@@ -648,6 +650,7 @@ export default function SigiloX() {
     const matchLocation =
       city || ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba"][Math.floor(Math.random() * 4)]
     const sampleBios = [
+  
       "Sou o que você ganha se misturar o Whindersson com o Cauã Reymond. Sou engraçado sem querer e minha mãe me acha lindo.",
       "Aventureiro, amante de café e entusiasta de cachorros. Procurando alguém para explorar a cidade comigo!",
       "Fã de academia de dia, maratonista de Netflix à noite. Vamos tomar um açaí e falar sobre a vida.",
@@ -730,6 +733,7 @@ export default function SigiloX() {
     for (let i = 0; i < 3; i++) {
       let profileGender: "masculino" | "feminino"
       let profileAgeRange: keyof typeof maleNames
+
       if (selectedGender === "nao-binario") {
         profileGender = Math.random() < 0.5 ? "masculino" : "feminino"
         const ageRanges: (keyof typeof maleNames)[] = ["18-24", "25-34", "35-44", "45-54"]
@@ -739,40 +743,39 @@ export default function SigiloX() {
         profileAgeRange = ageRange as keyof typeof maleNames
       }
 
-      const names = profileGender === "masculino" ? maleNames[profileAgeRange] : femaleNames[profileAgeRange]
-      let photoArray: string[] = []
+      let names: string[] = [];
+      let photoArray: string[] = [];
+
       if (profileGender === "masculino") {
-        if (profileAgeRange === "18-24") photoArray = malePhotos1824
-        else if (profileAgeRange === "25-34") photoArray = malePhotos2534
-        else if (profileAgeRange === "35-44") photoArray = malePhotos3544
-        else photoArray = malePhotos4554
+        names = maleNames[profileAgeRange] || []
+        switch (profileAgeRange) {
+          case "18-24": photoArray = malePhotos1824; break;
+          case "25-34": photoArray = malePhotos2534; break;
+          case "35-44": photoArray = malePhotos3544; break;
+          case "45-54": photoArray = malePhotos4554; break;
+          default: photoArray = malePhotos2534;
+        }
       } else {
-        if (profileAgeRange === "18-24") photoArray = femalePhotos1824
-        else if (profileAgeRange === "25-34") photoArray = femalePhotos2534
-        else if (profileAgeRange === "35-44") photoArray = femalePhotos3544
-        else photoArray = femalePhotos4554
+        names = femaleNames[profileAgeRange] || []
+        switch (profileAgeRange) {
+          case "18-24": photoArray = femalePhotos1824; break;
+          case "25-34": photoArray = femalePhotos2534; break;
+          case "35-44": photoArray = femalePhotos3544; break;
+          case "45-54": photoArray = femalePhotos4554; break;
+          default: photoArray = femalePhotos2534;
+        }
       }
 
-      const name = getUniqueItem(names || [], usedNames)
+      const name = getUniqueItem(names, usedNames)
       const profileImage = getUniqueItem(photoArray, usedImages)
-      // CORREÇÃO APLICADA AQUI
       const age = Math.floor(Math.random() * 7) + (Number.parseInt(profileAgeRange.split("-")[0]) || 25)
 
       profiles.push({
-        name,
-        age,
-        lastSeen: `há ${Math.floor(Math.random() * 24)}h`,
-        description: "Usuário ativo, frequentemente online",
-        image: profileImage,
-        bio: sampleBios[Math.floor(Math.random() * sampleBios.length)],
-        location: `Mora em ${matchLocation}`,
-        distance: `${Math.floor(Math.random() * 15) + 1} km de distância`,
-        orientation: orientations[Math.floor(Math.random() * orientations.length)],
-        verified: Math.random() > 0.5,
+        name, age, lastSeen: `há ${Math.floor(Math.random() * 24)}h`, description: "Usuário ativo, frequentemente online", image: profileImage, bio: sampleBios[Math.floor(Math.random() * sampleBios.length)], location: `Mora em ${matchLocation}`, distance: `${Math.floor(Math.random() * 15) + 1} km de distância`, orientation: orientations[Math.floor(Math.random() * orientations.length)], verified: Math.random() > 0.5, personality: ["Capricórnio", "INTJ", "Café"], interests: ["Viagens", "Música", "Trilhas"]
       })
     }
     setGeneratedProfiles(profiles)
-  }, [selectedGender, ageRange, city, setGeneratedProfiles])
+  }, 
 
   const openProfileModal = (profile: any) => {
     setSelectedProfile(profile)
@@ -1843,7 +1846,7 @@ export default function SigiloX() {
                       className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 text-sm sm:text-base md:text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6"
                     >
                       <span className="block text-center leading-tight px-2">
-                        🔓 DESBLOQUEAR MEU RELATÓRIO - ESTOU PRONTO(A) PARA A VERDADE
+                        🔓 DESBLOQUEAR MEU RELATÓRIO COMPLETO
                       </span>
                     </Button>
                     <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
